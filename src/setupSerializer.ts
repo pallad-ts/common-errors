@@ -4,7 +4,7 @@ import {ApplicationError} from "./ApplicationError";
 
 const prohibitedProperties = ['message', 'stack'];
 
-function normalizeError(err: Error) {
+function normalizeError(err: Error & { [key: string]: any }) {
     return Object.getOwnPropertyNames(err)
         .filter(propertyName => prohibitedProperties.indexOf(propertyName) === -1)
         .reduce((error: any, propertyName) => {
