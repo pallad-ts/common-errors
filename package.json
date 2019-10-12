@@ -1,0 +1,39 @@
+{
+  "name": "@pallad/common-errors",
+  "version": "1.0.0",
+  "description": "Common domain errors",
+  "main": "compiled/index.js",
+  "types": "compiled/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "alpha-serializer": "^0.4.1",
+    "@pallad/scripts": "*"
+  },
+  "optionalDependencies": {
+    "alpha-serializer": "^0.4.1"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/pallad-scripts test",
+    "compile": "./node_modules/.bin/pallad-scripts compile",
+    "lint": "./node_modules/.bin/pallad-scripts lint",
+    "prepublishOnly": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pallad-ts/common-errors.git"
+  },
+  "keywords": [
+    "errors",
+    "common",
+    "domain",
+    "errors"
+  ],
+  "author": "Łukasz Kużyński <lukasz.kuzynski@gmail.com> (http://wookieb.pl)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pallad-ts/common-errors/issues"
+  },
+  "homepage": "https://github.com/pallad-ts/common-errors#readme"
+}
