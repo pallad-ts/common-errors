@@ -6,12 +6,12 @@ export class NotFoundError<T = { [key: string]: any }> extends Error {
         Object.freeze(this);
     }
 
-    static entity(name: string, reference: { [key: string]: any }) {
+    static entity(name: string, reference: { [key: string]: any }): NotFoundError {
         const referenceString = Object.keys(reference)
             .reduce((result, key) => {
                 return result.concat([`${key}: ${reference[key]}`]);
             }, [] as string[])
             .join(', ');
-        new NotFoundError(`${name} not found${referenceString ? ` ${referenceString}` : ''}`)
+        return new NotFoundError(`${name} not found${referenceString ? `: ${referenceString}` : ''}`)
     }
 }
