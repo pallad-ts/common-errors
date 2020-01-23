@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFoundError creating for entity with references 1`] = `"User not found - id: 10"`;
+
+exports[`NotFoundError creating for entity without references 1`] = `"User not found"`;

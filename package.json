@@ -1,6 +1,6 @@
 {
   "name": "@pallad/common-errors",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Common domain errors",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
@@ -8,11 +8,18 @@
     "test": "test"
   },
   "devDependencies": {
-    "alpha-serializer": "^0.4.1",
-    "@pallad/scripts": "*"
+    "@pallad/scripts": "*",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^13.5.0",
+    "@types/sinon": "^7.5.1",
+    "alpha-serializer": "^0.5.*",
+    "sinon": "^7.5.0"
   },
-  "optionalDependencies": {
-    "alpha-serializer": "^0.4.1"
+  "files": [
+    "compiled"
+  ],
+  "peerDependencies": {
+    "alpha-serializer": "^0.5.*"
   },
   "scripts": {
     "test": "./node_modules/.bin/pallad-scripts test",

@@ -1,4 +1,4 @@
-export class NotFoundError<T = { [key: string]: any }> extends Error {
+export class NotFoundError<T = NotFoundError.References> extends Error {
     constructor(message: string, readonly references?: T) {
         super(message);
         this.message = message;
@@ -6,12 +6,22 @@ export class NotFoundError<T = { [key: string]: any }> extends Error {
         Object.freeze(this);
     }
 
-    static entity(name: string, reference: { [key: string]: any }): NotFoundError {
-        const referenceString = Object.keys(reference)
-            .reduce((result, key) => {
-                return result.concat([`${key}: ${reference[key]}`]);
-            }, [] as string[])
-            .join(', ');
-        return new NotFoundError(`${name} not found${referenceString ? `: ${referenceString}` : ''}`)
+    static entity<T>(name: string, references?: T): NotFoundError {
+        const referenceString = references ? getReferencesString(references) : '';
+        return new NotFoundError<T>(`${name} not found${referenceString ? ` - ${referenceString}` : ''}`)
     }
+}
+
+export namespace NotFoundError {
+    export interface References {
+        [key: string]: any
+    }
+}
+
+function getReferencesString(references: NotFoundError.References) {
+    return Object.keys(references)
+        .reduce((result, key) => {
+            return result.concat([`${key}: ${references[key]}`]);
+        }, [] as string[])
+        .join(', ')
 }
