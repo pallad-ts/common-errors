@@ -6,7 +6,7 @@ import {RemoteServerError} from "./RemoteServerError";
 
 const prohibitedProperties = ['message', 'stack'];
 
-function normalizeError(err: Error & { [key: string]: any }) {
+export function normalizeError(err: Error & { [key: string]: any }) {
     return Object.getOwnPropertyNames(err)
         .filter(propertyName => prohibitedProperties.indexOf(propertyName) === -1)
         .reduce((error: any, propertyName) => {
