@@ -3,6 +3,7 @@ import {setupSerializer, setupSerializerForStandardErrors} from "@src/serializer
 import {InternalError} from "@src/InternalError";
 import {NotFoundError} from "@src/NotFoundError";
 import {ApplicationError} from "@src/ApplicationError";
+import {RemoteServerError} from "@src/RemoteServerError";
 
 describe('serializer', () => {
 
@@ -33,6 +34,13 @@ describe('serializer', () => {
 
         it('ApplicationError', () => {
             const error = new ApplicationError('message');
+
+            expect(serializer.normalizer.normalize(error))
+                .toMatchSnapshot();
+        });
+
+        it('ApplicationError', () => {
+            const error = new RemoteServerError('message');
 
             expect(serializer.normalizer.normalize(error))
                 .toMatchSnapshot();

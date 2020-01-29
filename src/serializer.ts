@@ -2,6 +2,7 @@ import {DataNormalizer, Serializer} from "alpha-serializer";
 import {NotFoundError} from "./NotFoundError";
 import {ApplicationError} from "./ApplicationError";
 import {InternalError} from "./InternalError";
+import {RemoteServerError} from "./RemoteServerError";
 
 const prohibitedProperties = ['message', 'stack'];
 
@@ -23,7 +24,8 @@ export function setupSerializer(serializer: Serializer) {
     setup(serializer.normalizer, [
         ['Error/NotFound', NotFoundError],
         ['Error/Application', ApplicationError],
-        ['Error/Internal', InternalError]
+        ['Error/Internal', InternalError],
+        ['Error/RemoteServer', RemoteServerError]
     ]);
 }
 
