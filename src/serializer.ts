@@ -22,29 +22,44 @@ export function normalizeError(err: Error & { [key: string]: any }) {
 
 export function setupSerializer(serializer: Serializer) {
     setup(serializer.normalizer, [
-        ['Error/NotFound', NotFoundError],
-        ['Error/Application', ApplicationError],
-        ['Error/Internal', InternalError],
-        ['Error/RemoteServer', RemoteServerError]
+        ['Error/NotFound', NotFoundError, value => {
+            return new NotFoundError(value.message, value.references)
+        }],
+        ['Error/Application', ApplicationError, value => {
+            return new ApplicationError(value.message);
+        }],
+        ['Error/Internal', InternalError, value => {
+            return new InternalError(value.message);
+        }],
+        ['Error/RemoteServer', RemoteServerError, value => {
+            return new RemoteServerError(value.message);
+        }]
     ]);
 }
 
 function setup(normalizer: DataNormalizer, defs: Definition[]) {
-    for (const [name, clazz] of defs) {
+    for (const [name, clazz, denormalizer] of defs) {
         normalizer.registerNormalization({
             name,
             clazz,
-            normalizer: normalizeError
+            normalizer: normalizeError,
+            denormalizer
         });
     }
 }
 
-type Definition = [string, any];
+type Definition = [string, any, ((value: any) => any) | undefined];
 
 export function setupSerializerForStandardErrors(serializer: Serializer<any>) {
     setup(serializer.normalizer, [
-        ['Error', global.Error],
-        ['TypeError', global.TypeError],
-        ['ReferenceError', global.ReferenceError],
+        ['Error', global.Error, value => {
+            return new Error(value.message);
+        }],
+        ['TypeError', global.TypeError, value => {
+            return new TypeError(value.message);
+        }],
+        ['ReferenceError', global.ReferenceError, value => {
+            return new ReferenceError(value.message);
+        }],
     ]);
 }

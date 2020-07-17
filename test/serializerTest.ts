@@ -5,9 +5,23 @@ import {NotFoundError} from "@src/NotFoundError";
 import {ApplicationError} from "@src/ApplicationError";
 import {RemoteServerError} from "@src/RemoteServerError";
 
+
 describe('serializer', () => {
 
     let serializer: Serializer;
+
+    function assertResult(error: any, matchObject: any) {
+        const normalized = serializer.normalizer.normalize(error);
+        expect(normalized)
+            .toMatchSnapshot();
+
+        const denormalized = serializer.normalizer.denormalize(normalized);
+        expect(denormalized)
+            .toMatchObject(matchObject);
+
+        expect(denormalized)
+            .toBeInstanceOf(Object.getPrototypeOf(error).constructor);
+    }
 
     beforeEach(() => {
         serializer = new Serializer(new JSONAdapter(), new DataNormalizer());
@@ -19,31 +33,37 @@ describe('serializer', () => {
         });
 
         it('InternalError', () => {
-            const error = new InternalError('Some internal error', new Error('foo bar'));
+            const previousError = new Error('foo bar');
+            const error = new InternalError('Some internal error', previousError);
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            });
         });
 
         it('NotFoundError', () => {
             const error = new NotFoundError('message', {id: 10, type: 'test'});
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message,
+                references: error.references
+            })
         });
 
         it('ApplicationError', () => {
             const error = new ApplicationError('message');
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            })
         });
 
         it('ApplicationError', () => {
             const error = new RemoteServerError('message');
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            })
         });
     });
 
@@ -55,22 +75,25 @@ describe('serializer', () => {
         it('TypeError', () => {
             const error = new TypeError('Hello');
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            })
         });
 
         it('Error', () => {
             const error = new Error('Hello');
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            })
         });
 
         it('ReferenceError', () => {
             const error = new ReferenceError('Hello');
 
-            expect(serializer.normalizer.normalize(error))
-                .toMatchSnapshot();
+            assertResult(error, {
+                message: error.message
+            })
         });
     });
 });

@@ -8,7 +8,7 @@ export class NotFoundError<T = NotFoundError.References> extends Error {
 
     static entity<T>(name: string, references?: T): NotFoundError {
         const referenceString = references ? getReferencesString(references) : '';
-        return new NotFoundError<T>(`${name} not found${referenceString ? ` - ${referenceString}` : ''}`)
+        return new NotFoundError<T>(`${name} not found${referenceString ? ` - ${referenceString}` : ''}`, references)
     }
 }
 
