@@ -21,6 +21,8 @@ describe('serializer', () => {
 
         expect(denormalized)
             .toBeInstanceOf(Object.getPrototypeOf(error).constructor);
+
+        return denormalized;
     }
 
     beforeEach(() => {
@@ -50,12 +52,25 @@ describe('serializer', () => {
             })
         });
 
-        it('ApplicationError', () => {
-            const error = new ApplicationError('message');
+        describe('ApplicationError', () => {
+            it('standard', () => {
+                const error = new ApplicationError('message');
 
-            assertResult(error, {
-                message: error.message
+                assertResult(error, {
+                    message: error.message
+                })
             })
+            it('with code', () => {
+                const error = new ApplicationError('message');
+                error.code = 'code';
+
+                const denormalized = assertResult(error, {
+                    message: error.message
+                })
+
+                expect(denormalized.code)
+                    .toEqual(error.code);
+            });
         });
 
         it('ApplicationError', () => {

@@ -20,19 +20,47 @@ export function normalizeError(err: Error & { [key: string]: any }) {
         });
 }
 
+const STANDARD_EXCLUDED_PROPERTIES = ['message', 'name'];
+
+function assignExtraProperties(error: any, currentValue: any, excludedProperties = STANDARD_EXCLUDED_PROPERTIES) {
+    for (const [key, value] of Object.entries(currentValue)) {
+        if (excludedProperties.includes(key)) {
+            continue;
+        }
+        error[key] = value;
+    }
+    return error;
+}
+
 export function setupSerializer(serializer: Serializer) {
     setup(serializer.normalizer, [
         ['Error/NotFound', NotFoundError, value => {
-            return new NotFoundError(value.message, value.references)
+            return assignExtraProperties(
+                new NotFoundError(value.message, value.references),
+                value,
+                [
+                    ...STANDARD_EXCLUDED_PROPERTIES,
+                    'references'
+                ]
+            );
         }],
         ['Error/Application', ApplicationError, value => {
-            return new ApplicationError(value.message);
+            return assignExtraProperties(
+                new ApplicationError(value.message),
+                value
+            );
         }],
         ['Error/Internal', InternalError, value => {
-            return new InternalError(value.message);
+            return assignExtraProperties(
+                new InternalError(value.message),
+                value
+            );
         }],
         ['Error/RemoteServer', RemoteServerError, value => {
-            return new RemoteServerError(value.message);
+            return assignExtraProperties(
+                new RemoteServerError(value.message),
+                value
+            );
         }]
     ]);
 }

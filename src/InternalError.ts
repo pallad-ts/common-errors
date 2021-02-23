@@ -1,4 +1,5 @@
 export class InternalError extends Error {
+    code?: string;
     constructor(message: string, previousError?: Error) {
         super();
         Object.defineProperty(this, 'previousError', {

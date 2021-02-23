@@ -2,6 +2,16 @@
 
 exports[`serializer common errors ApplicationError 1`] = `
 Object {
+  "@type": "Error/RemoteServer",
+  "value": Object {
+    "message": "message",
+    "name": "RemoteServerError",
+  },
+}
+`;
+
+exports[`serializer common errors ApplicationError standard 1`] = `
+Object {
   "@type": "Error/Application",
   "value": Object {
     "message": "message",
@@ -10,12 +20,13 @@ Object {
 }
 `;
 
-exports[`serializer common errors ApplicationError 2`] = `
+exports[`serializer common errors ApplicationError with code 1`] = `
 Object {
-  "@type": "Error/RemoteServer",
+  "@type": "Error/Application",
   "value": Object {
+    "code": "code",
     "message": "message",
-    "name": "RemoteServerError",
+    "name": "ApplicationError",
   },
 }
 `;
