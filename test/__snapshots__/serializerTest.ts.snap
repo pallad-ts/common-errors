@@ -55,6 +55,28 @@ Object {
 }
 `;
 
+exports[`serializer common errors TimeoutError 1`] = `
+Object {
+  "@type": "Error/Timeout",
+  "value": Object {
+    "message": "message",
+    "name": "TimeoutError",
+    "timeout": 100,
+  },
+}
+`;
+
+exports[`serializer common errors TimeoutError 2`] = `
+Object {
+  "@type": "Error/Timeout",
+  "value": Object {
+    "message": "message",
+    "name": "TimeoutError",
+    "timeout": undefined,
+  },
+}
+`;
+
 exports[`serializer standard errors Error 1`] = `
 Object {
   "@type": "Error",

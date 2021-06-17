@@ -3,6 +3,7 @@ import {NotFoundError} from "./NotFoundError";
 import {ApplicationError} from "./ApplicationError";
 import {InternalError} from "./InternalError";
 import {RemoteServerError} from "./RemoteServerError";
+import {TimeoutError} from './TimeoutError';
 
 const prohibitedProperties = ['message', 'stack'];
 
@@ -59,6 +60,12 @@ export function setupSerializer(serializer: Serializer) {
         ['Error/RemoteServer', RemoteServerError, value => {
             return assignExtraProperties(
                 new RemoteServerError(value.message),
+                value
+            );
+        }],
+        ['Error/Timeout', TimeoutError, value => {
+            return assignExtraProperties(
+                new TimeoutError(value.message, value.timeout),
                 value
             );
         }]

@@ -4,6 +4,7 @@ import {InternalError} from "@src/InternalError";
 import {NotFoundError} from "@src/NotFoundError";
 import {ApplicationError} from "@src/ApplicationError";
 import {RemoteServerError} from "@src/RemoteServerError";
+import {TimeoutError} from '@src/TimeoutError';
 
 
 describe('serializer', () => {
@@ -50,6 +51,19 @@ describe('serializer', () => {
                 message: error.message,
                 references: error.references
             })
+        });
+
+        it('TimeoutError', () => {
+            const MESSAGE = 'message';
+
+            assertResult(new TimeoutError(MESSAGE, 100), {
+                message: MESSAGE,
+                timeout: 100
+            });
+
+            assertResult(new TimeoutError(MESSAGE), {
+                message: MESSAGE
+            });
         });
 
         describe('ApplicationError', () => {
