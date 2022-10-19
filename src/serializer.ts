@@ -4,6 +4,7 @@ import {ApplicationError} from "./ApplicationError";
 import {InternalError} from "./InternalError";
 import {RemoteServerError} from "./RemoteServerError";
 import {TimeoutError} from './TimeoutError';
+import {LimitExceededError} from "./LimitExceededError";
 
 const prohibitedProperties = ['message', 'stack'];
 
@@ -71,7 +72,7 @@ export function setupSerializer(serializer: Serializer) {
 		}],
 		['Error/LimitExceeded', TimeoutError, value => {
 			return assignExtraProperties(
-				new TimeoutError(value.message, value.timeout),
+				new LimitExceededError(value.message, value.payload),
 				value
 			);
 		}]
