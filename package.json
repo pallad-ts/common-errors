@@ -1,6 +1,6 @@
 {
   "name": "@pallad/common-errors",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Common domain errors",
   "main": "compiled/index.js",
   "types": "compiled/index.d.ts",
