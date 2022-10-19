@@ -4,3 +4,4 @@ export * from './InternalError';
 export * from './RemoteServerError';
 export * from './TimeoutError';
 export * from "./serializer";
+export * from './LimitExceededError';
