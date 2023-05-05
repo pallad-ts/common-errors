@@ -3,6 +3,8 @@
  */
 
 export * from "./ApplicationError";
+export * from "./AuthenticationError";
+export * from "./AuthorizationError";
 export * from "./BaseError";
 export * from "./InternalError";
 export * from "./LimitExceededError";
