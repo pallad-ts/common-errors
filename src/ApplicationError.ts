@@ -1,8 +1,9 @@
-export class ApplicationError extends Error {
-    code?: string;
-    constructor(message: string) {
-        super(message);
-        this.message = message;
-        this.name = 'ApplicationError';
-    }
+import {BaseError} from "./BaseError";
+
+/**
+ * General application error.
+ *
+ * Suitable for cases where other errors do not fit.
+ */
+export class ApplicationError extends BaseError.withName('ApplicationError') {
 }

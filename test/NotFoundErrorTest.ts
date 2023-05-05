@@ -1,19 +1,26 @@
 import {NotFoundError} from "@src/NotFoundError";
+import {runStandardTests} from "./runStandardTests";
 
 describe('NotFoundError', () => {
-    describe('creating for entity', () => {
-        it('without references', () => {
-            const error = NotFoundError.entity('User');
+	const MESSAGE = 'Standard Not Found Error Message';
+	runStandardTests(new NotFoundError(MESSAGE), {
+		errorName: 'NotFoundError',
+		message: MESSAGE
+	});
 
-            expect(error.message)
-                .toMatchSnapshot();
-        });
+	describe('creating for entity', () => {
+		it('without references', () => {
+			const error = NotFoundError.entity('User');
 
-        it('with references', () => {
-            const error = NotFoundError.entity('User', {id: 10});
+			expect(error.message)
+				.toMatchSnapshot();
+		});
 
-            expect(error.message)
-                .toMatchSnapshot();
-        });
-    });
+		it('with references', () => {
+			const error = NotFoundError.entity('User', {id: 10});
+
+			expect(error.message)
+				.toMatchSnapshot();
+		});
+	});
 })

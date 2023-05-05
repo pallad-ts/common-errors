@@ -1,3 +1,10 @@
 node_modules
-compiled
 coverage
+compiled
+*.log
+junit.xml
+.idea
+**/.DS_Store
+.eslintcache
+tsnode-cache
+.task

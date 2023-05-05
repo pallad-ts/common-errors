@@ -8,23 +8,21 @@
     "test": "test"
   },
   "devDependencies": {
-    "@pallad/scripts": "3.0.0-alpha.1",
+    "@pallad/scripts": "^3.0.0",
     "@types/node": "^18",
     "@types/sinon": "^10",
-    "alpha-serializer": "^0.5.*",
-    "sinon": "^14"
+    "sinon": "^14",
+    "barrelsby": "^2.5.1"
   },
   "files": [
     "compiled"
   ],
-  "peerDependencies": {
-    "alpha-serializer": "^0.5.*"
-  },
   "scripts": {
     "test": "./node_modules/.bin/pallad-scripts test",
-    "compile": "./node_modules/.bin/pallad-scripts compile",
+    "compile": "npm run generate-barrels && ./node_modules/.bin/pallad-scripts compile",
     "lint": "./node_modules/.bin/pallad-scripts lint",
-    "prepublishOnly": "npm run compile"
+    "prepublishOnly": "npm run compile",
+    "generate-barrels": "./node_modules/.bin/barrelsby -l all --delete -d ./src"
   },
   "repository": {
     "type": "git",
