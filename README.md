@@ -27,7 +27,43 @@ All errors assume that `code` property might be set for an error.
 ## ApplicationError
 The most common kind of error. Should be used only if other type of errors do not fit.
 
-```typescript jsx
+```typescript
+import {ApplicationError} from "@pallad/common-errors";
 
+function publishArticle(id: string) {
+    const article = findById(id);
+    if (article?.status === 'published') {
+        throw new ApplicationError('Cannot publish article that is already published');
+    }
+}
 ```
-##
+
+## AuthenticationError
+
+Indicates lack of ability to verify who is the participant performing an operation
+
+```typescript
+import {AuthenticationError} from '@pallad/common-errors';
+
+function activateAccount(token: string) {
+    if (!verifyToken(token)) {
+        throw new AuthenticationError('Invalid token');
+    }
+}
+```
+
+## AuthorizationError
+Indicates lack of certain permissions to perform an operation
+
+```typescript
+import {AuthorizationError} from '@pallad/common-errors';
+
+function deleteArticle(participant: Participant, id: string) {
+    const article = findById(id);
+    if (!hasPermission(article, participant)) {
+        throw new AuthorizationError('Invalid token');
+    }
+}
+```
+
+// TODO
