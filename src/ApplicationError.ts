@@ -5,5 +5,8 @@ import {BaseError} from "./BaseError";
  *
  * Suitable for cases where other errors do not fit.
  */
-export class ApplicationError extends BaseError.withName('ApplicationError') {
+export class ApplicationError extends BaseError {
+	constructor(message: string) {
+		super(message, 'ApplicationError');
+	}
 }

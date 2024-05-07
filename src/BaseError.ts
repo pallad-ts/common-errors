@@ -1,9 +1,9 @@
-export class BaseError extends Error {
+export abstract class BaseError extends Error {
 	code?: string;
+	previousError?: Error;
 
-	static withName(name: string) {
-		return class extends BaseError {
-			name = name;
-		}
+	constructor(message: string, name: string) {
+		super(message);
+		this.name = name;
 	}
 }

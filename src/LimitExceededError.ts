@@ -5,9 +5,9 @@ import {BaseError} from "./BaseError";
  *
  * For example organization has too many users or indicating rate limiting errors.
  */
-export class LimitExceededError<T> extends BaseError.withName('LimitExceededError') {
+export class LimitExceededError<T> extends BaseError {
 	constructor(message: string, readonly payload?: T) {
-		super(message);
+		super(message, 'LimitExceededError');
 	}
 }
 

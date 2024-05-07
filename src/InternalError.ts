@@ -5,11 +5,11 @@ import {BaseError} from "./BaseError";
  *
  * Stores `previousError` helpful for debugging purposes.
  */
-export class InternalError<TPrevious> extends BaseError.withName('InternalError') {
-	readonly previousError?: TPrevious;
+export class InternalError<TPreviousError extends Error> extends BaseError {
+	previousError?: TPreviousError;
 
-	constructor(message: string, previousError?: TPrevious) {
-		super(message);
+	constructor(message: string, previousError?: TPreviousError) {
+		super(message, 'InternalError');
 		Object.defineProperty(this, 'previousError', {
 			enumerable: false,
 			configurable: false,

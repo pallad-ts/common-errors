@@ -3,10 +3,9 @@ import {BaseError} from "./BaseError";
 /**
  * Indicates that an entity does not exist.
  */
-export class NotFoundError<T = NotFoundError.References> extends BaseError.withName('NotFoundError') {
+export class NotFoundError<T = NotFoundError.References> extends BaseError {
 	constructor(message: string, readonly references?: T) {
-		super(message);
-		Object.freeze(this);
+		super(message, 'NotFoundError');
 	}
 
 	/**
