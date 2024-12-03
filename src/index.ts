@@ -6,6 +6,7 @@ export * from "./ApplicationError";
 export * from "./AuthenticationError";
 export * from "./AuthorizationError";
 export * from "./BaseError";
+export * from "./ConflictError";
 export * from "./InternalError";
 export * from "./LimitExceededError";
 export * from "./NotFoundError";
