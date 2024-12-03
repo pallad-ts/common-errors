@@ -23,47 +23,11 @@ All errors assume that `code` property might be set for an error.
 `code` is used to uniquely specify what error is being thrown.
 
 # Errors
-
-## ApplicationError
-The most common kind of error. Should be used only if other type of errors do not fit.
-
-```typescript
-import {ApplicationError} from "@pallad/common-errors";
-
-function publishArticle(id: string) {
-    const article = findById(id);
-    if (article?.status === 'published') {
-        throw new ApplicationError('Cannot publish article that is already published');
-    }
-}
-```
-
-## AuthenticationError
-
-Indicates lack of ability to verify who is the participant performing an operation
-
-```typescript
-import {AuthenticationError} from '@pallad/common-errors';
-
-function activateAccount(token: string) {
-    if (!verifyToken(token)) {
-        throw new AuthenticationError('Invalid token');
-    }
-}
-```
-
-## AuthorizationError
-Indicates lack of certain permissions to perform an operation
-
-```typescript
-import {AuthorizationError} from '@pallad/common-errors';
-
-function deleteArticle(participant: Participant, id: string) {
-    const article = findById(id);
-    if (!hasPermission(article, participant)) {
-        throw new AuthorizationError('Invalid token');
-    }
-}
-```
-
-// TODO
+* [ApplicationError](blob/master/src/ApplicationError.ts)
+* [AuthenticationError](blob/master/src/AuthenticationError.ts)
+* [AuthorizationError](blob/master/src/AuthorizationError.ts)
+* [ConflictErrpr](blob/master/src/ConflictErrpr.ts)
+* [InternalError](blob/master/src/InternalError.ts)
+* [LimitExceededError](blob/master/src/LimitExceededError.ts)
+* [NotFoundError](blob/master/src/NotFoundError.ts)
+* [TimeoutError](blob/master/src/TimeoutError.ts)
